@@ -1,0 +1,68 @@
+{
+  "model": "CNN",
+  "test_loss": 0.03269203958744183,
+  "test_accuracy": 0.9894,
+  "test_samples": 10000,
+  "per_digit": {
+    "0": {
+      "accuracy": 0.9887755102040816,
+      "precision": 0.9958890030832477,
+      "support": 980,
+      "correct": 969
+    },
+    "1": {
+      "accuracy": 0.9938325991189427,
+      "precision": 0.9929577464788732,
+      "support": 1135,
+      "correct": 1128
+    },
+    "2": {
+      "accuracy": 0.9961240310077519,
+      "precision": 0.978116079923882,
+      "support": 1032,
+      "correct": 1028
+    },
+    "3": {
+      "accuracy": 0.9831683168316832,
+      "precision": 0.995987963891675,
+      "support": 1010,
+      "correct": 993
+    },
+    "4": {
+      "accuracy": 0.9857433808553971,
+      "precision": 0.9979381443298969,
+      "support": 982,
+      "correct": 968
+    },
+    "5": {
+      "accuracy": 0.9955156950672646,
+      "precision": 0.976897689768977,
+      "support": 892,
+      "correct": 888
+    },
+    "6": {
+      "accuracy": 0.9895615866388309,
+      "precision": 0.9905956112852664,
+      "support": 958,
+      "correct": 948
+    },
+    "7": {
+      "accuracy": 0.9815175097276264,
+      "precision": 0.9911591355599214,
+      "support": 1028,
+      "correct": 1009
+    },
+    "8": {
+      "accuracy": 0.9928131416837782,
+      "precision": 0.9897645854657113,
+      "support": 974,
+      "correct": 967
+    },
+    "9": {
+      "accuracy": 0.9871159563924677,
+      "precision": 0.9841897233201581,
+      "support": 1009,
+      "correct": 996
+    }
+  }
+}

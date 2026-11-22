@@ -130,11 +130,13 @@ def save_history(history: dict[str, list[float]], output_dir: str | Path) -> Non
     """Save metrics as CSV and create loss and accuracy plots."""
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
-    with (output_path / "history.csv").open("w", newline="", encoding="utf-8") as file:
-        writer = csv.writer(file)
-        writer.writerow(["epoch", *history])
-        for index in range(len(history["train_loss"])):
-            writer.writerow([index + 1, *(history[key][index] for key in history)])
+    fieldnames = ["epoch", *history]
+    for filename in ("history.csv", "training_history.csv"):
+        with (output_path / filename).open("w", newline="", encoding="utf-8") as file:
+            writer = csv.writer(file)
+            writer.writerow(fieldnames)
+            for index in range(len(history["train_loss"])):
+                writer.writerow([index + 1, *(history[key][index] for key in history)])
 
     epochs = range(1, len(history["train_loss"]) + 1)
     for metric, title, filename, ylabel in (
