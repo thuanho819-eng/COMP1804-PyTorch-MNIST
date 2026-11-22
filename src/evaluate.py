@@ -97,6 +97,45 @@ def save_confusion_matrix(confusion: torch.Tensor, output_path: Path) -> None:
     plt.close(figure)
 
 
+@torch.no_grad()
+def save_wrong_predictions(
+    model: nn.Module,
+    loader: DataLoader,
+    device: torch.device,
+    output_path: Path,
+    limit: int = 16,
+) -> None:
+    """Save a 4x4 grid of test images the model predicted wrongly."""
+    model.eval()
+    wrong_images, wrong_labels, wrong_predictions = [], [], []
+    for images, labels in loader:
+        predictions = model(images.to(device)).argmax(dim=1).cpu()
+        for image, label, prediction in zip(images, labels, predictions):
+            if label != prediction:
+                wrong_images.append(image)
+                wrong_labels.append(label.item())
+                wrong_predictions.append(prediction.item())
+        if len(wrong_images) >= limit:
+            break
+
+    figure, axes = plt.subplots(4, 4, figsize=(7, 7.5))
+    for index, axis in enumerate(axes.flat):
+        axis.axis("off")
+        if index < len(wrong_images):
+            # Bỏ chuẩn hóa để hiển thị ảnh gốc 0..1
+            image = wrong_images[index][0] * 0.3081 + 0.1307
+            axis.imshow(image.numpy(), cmap="gray")
+            axis.set_title(
+                f"Đúng: {wrong_labels[index]} - Đoán: {wrong_predictions[index]}",
+                fontsize=8,
+                color="red",
+            )
+    figure.suptitle("Một số ảnh trong tập test bị đoán sai")
+    figure.tight_layout()
+    figure.savefig(output_path, dpi=150)
+    plt.close(figure)
+
+
 def main() -> None:
     """Evaluate a saved checkpoint and write JSON and plot artifacts."""
     parser = argparse.ArgumentParser(description=__doc__)
@@ -107,7 +146,7 @@ def main() -> None:
     args = parser.parse_args()
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    _, test_loader = get_data_loaders(args.data_dir, download=False)
+    _, test_loader = get_data_loaders(args.data_dir, download=True)
     model = create_model(args.model)
     checkpoint = args.model_dir / f"{args.model}.pt"
     state_dict = torch.load(checkpoint, map_location=device, weights_only=True)
@@ -118,6 +157,7 @@ def main() -> None:
     with (args.output_dir / "metrics.json").open("w", encoding="utf-8") as file:
         json.dump(metrics, file, indent=2)
     save_confusion_matrix(confusion, args.output_dir / "confusion_matrix.png")
+    save_wrong_predictions(model, test_loader, device, args.output_dir / "wrong_predictions.png")
 
     print(
         f"{args.model.upper()} test accuracy: {float(metrics['test_accuracy']):.2%}; "

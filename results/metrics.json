@@ -1,6 +1,6 @@
 {
   "model": "CNN",
-  "test_loss": 0.03269203958744183,
+  "test_loss": 0.032692040077690034,
   "test_accuracy": 0.9894,
   "test_samples": 10000,
   "per_digit": {

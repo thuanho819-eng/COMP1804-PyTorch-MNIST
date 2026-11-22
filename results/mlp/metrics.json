@@ -1,6 +1,6 @@
 {
   "model": "MLP",
-  "test_loss": 0.07629343081079423,
+  "test_loss": 0.0762934300776571,
   "test_accuracy": 0.9773,
   "test_samples": 10000,
   "per_digit": {

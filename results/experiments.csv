@@ -1,0 +1,6 @@
+﻿Cấu hình,Optimizer,Learning rate,Tăng cường dữ liệu,Test accuracy (%),Ảnh tự viết đúng (%),Thời gian (phút)
+Adam lr=0.001,Adam,0.001,Không,98.82,80.0,7.3
+Adam lr=0.01,Adam,0.01,Không,98.82,80.0,6.9
+SGD lr=0.01,SGD,0.01,Không,98.95,80.0,6.6
+SGD lr=0.1,SGD,0.1,Không,99.03,90.0,6.0
+Adam lr=0.001 + tăng cường,Adam,0.001,Có,99.11,70.0,8.1
