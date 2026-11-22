@@ -1,0 +1,21 @@
+﻿Mô hình,Tên file,Chữ số đúng,Dự đoán,Độ tin cậy (%),Đúng
+CNN,0.png,0,0,94.6,True
+CNN,1.png,1,1,97.6,True
+CNN,2.png,2,2,99.9,True
+CNN,3.png,3,3,73.3,True
+CNN,4.png,4,4,95.2,True
+CNN,5.png,5,5,99.3,True
+CNN,6.png,6,6,94.5,True
+CNN,7.png,7,7,94.3,True
+CNN,8.png,8,8,40.5,True
+CNN,9.png,9,3,37.5,False
+MLP,0.png,0,3,66.6,False
+MLP,1.png,1,1,47.2,True
+MLP,2.png,2,2,97.3,True
+MLP,3.png,3,5,90.4,False
+MLP,4.png,4,5,50.8,False
+MLP,5.png,5,5,96.1,True
+MLP,6.png,6,6,51.8,True
+MLP,7.png,7,2,74.5,False
+MLP,8.png,8,3,45.6,False
+MLP,9.png,9,5,55.0,False
