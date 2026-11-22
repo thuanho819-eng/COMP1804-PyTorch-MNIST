@@ -3,3 +3,4 @@ data/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+lich_su_du_doan.csv
