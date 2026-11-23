@@ -41,17 +41,18 @@ def main():
             })
 
     df = pd.DataFrame(rows)
-    print(df.to_string(index=False))
+    print("Da luu ket qua cho", len(rows), "lan du doan")
 
     # Tỷ lệ đúng của từng mô hình
     print()
     for model_name, group in df.groupby("Mô hình"):
         correct = group["Đúng"].sum()
-        print(f"{model_name}: đúng {correct}/{len(group)} ảnh ({correct / len(group) * 100:.1f}%)")
+        accuracy = correct / len(group) * 100
+        print(f"{model_name}: dung {correct}/{len(group)} anh ({accuracy:.1f}%)")
 
     os.makedirs(os.path.dirname(RESULT_FILE), exist_ok=True)
     df.to_csv(RESULT_FILE, index=False, encoding="utf-8-sig")
-    print(f"\nĐã lưu kết quả vào {RESULT_FILE}")
+    print(f"\nDa luu ket qua vao {RESULT_FILE}")
 
 
 if __name__ == "__main__":

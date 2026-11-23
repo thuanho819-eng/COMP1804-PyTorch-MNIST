@@ -153,11 +153,12 @@ def main() -> None:
     model.load_state_dict(state_dict)
 
     metrics, confusion, _ = evaluate_model(model, test_loader, device)
-    args.output_dir.mkdir(parents=True, exist_ok=True)
-    with (args.output_dir / "metrics.json").open("w", encoding="utf-8") as file:
+    output_dir = args.output_dir / "mlp" if args.model == "mlp" else args.output_dir
+    output_dir.mkdir(parents=True, exist_ok=True)
+    with (output_dir / "metrics.json").open("w", encoding="utf-8") as file:
         json.dump(metrics, file, indent=2)
-    save_confusion_matrix(confusion, args.output_dir / "confusion_matrix.png")
-    save_wrong_predictions(model, test_loader, device, args.output_dir / "wrong_predictions.png")
+    save_confusion_matrix(confusion, output_dir / "confusion_matrix.png")
+    save_wrong_predictions(model, test_loader, device, output_dir / "wrong_predictions.png")
 
     print(
         f"{args.model.upper()} test accuracy: {float(metrics['test_accuracy']):.2%}; "
