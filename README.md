@@ -28,7 +28,7 @@ Các kết quả chi tiết gồm confusion matrix, loss, accuracy và ảnh d�
 COMP1804-PyTorch-MNIST/
 ├── app.py                 # Giao diện Streamlit
 ├── requirements.txt       # Các thư viện cần thiết
-├── data/MNIST/raw/        # Dữ liệu MNIST
+├── data/MNIST/raw/        # Tự tải dữ liệu MNIST ở lần chạy đầu
 ├── models/                # cnn.pt và mlp.pt
 ├── notebooks/             # Notebook phục vụ phân tích/thực nghiệm
 ├── results/               # Biểu đồ, metrics và bảng kết quả
