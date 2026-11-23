@@ -68,7 +68,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 .\.venv\Scripts\Activate.ps1
 ```
 
-Dữ liệu MNIST hiện đã có trong `data/MNIST/raw/`. Các script vẫn có thể tự tải dữ liệu nếu chưa đủ.
+Dữ liệu MNIST chưa được đưa lên GitHub; lần chạy đầu tiên, các script sẽ tự tải dữ liệu về `data/MNIST/raw/`.
 
 ## Chạy ứng dụng
 
@@ -95,7 +95,7 @@ python -m src.train --model cnn --epochs 5 --batch-size 128 --learning-rate 0.00
 Huấn luyện MLP:
 
 ```powershell
-python -m src.train --model mlp --epochs 5 --batch-size 128 --learning-rate 0.001
+python -m src.train --model mlp --epochs 5 --batch-size 128 --learning-rate 0.001 --output-dir results/mlp
 ```
 
 Các tùy chọn:
@@ -127,7 +127,7 @@ python -m src.evaluate --model cnn --output-dir results
 Đánh giá MLP:
 
 ```powershell
-python -m src.evaluate --model mlp --output-dir results/mlp
+python -m src.evaluate --model mlp --output-dir results
 ```
 
 Lệnh đánh giá tạo `metrics.json`, confusion matrix và danh sách ảnh dự đoán sai.
