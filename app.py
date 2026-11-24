@@ -1,5 +1,6 @@
 import datetime
 import json
+import mimetypes
 import os
 
 import pandas as pd
@@ -9,10 +10,14 @@ from streamlit_drawable_canvas import st_canvas
 
 from src.predict import load_model, predict, preprocess
 
+mimetypes.add_type("text/javascript", ".js")
+mimetypes.add_type("text/css", ".css")
+
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
 RESULTS_DIR = os.path.join(APP_DIR, "results")
 
 HISTORY_FILE = os.path.join(APP_DIR, "lich_su_du_doan.csv")
+PINEAPPLE_YELLOW = "#E8A317"  # màu cột biểu đồ (vàng dứa chín)
 
 
 def save_history():
@@ -37,8 +42,11 @@ def load_metrics(model_name):
         return json.load(f)
 
 
-st.title("Nhận diện chữ số viết tay")
+st.set_page_config(page_title="Nhận diện chữ số viết tay", page_icon="🍍")
+
+st.title("🍍 Nhận diện chữ số viết tay")
 st.write("Đồ án COMP1804 - Mô hình PyTorch huấn luyện trên bộ dữ liệu MNIST")
+st.divider()
 
 if "models" not in st.session_state:
     st.session_state["models"] = {
@@ -81,7 +89,7 @@ with tab_predict:
         canvas = st_canvas(
             stroke_width=18,
             stroke_color="#000000",
-            background_color="#FFFFFF",
+            background_color="#FFFFFF",  # giữ nền trắng, nét đen để giống cách xử lý ảnh tải lên
             height=280,
             width=280,
             drawing_mode="freedraw",
@@ -109,7 +117,7 @@ with tab_predict:
                 digit = probs.index(max(probs))
                 confidence = max(probs) * 100
 
-                st.success(f"Chữ số dự đoán: {digit}")
+                st.success(f"🍍 Chữ số dự đoán: {digit}")
                 st.metric("Độ tin cậy", f"{confidence:.1f} %")
 
                 # Top 3 chữ số có xác suất cao nhất
@@ -121,7 +129,7 @@ with tab_predict:
                     "Chữ số": [str(i) for i in range(10)],
                     "Xác suất": probs,
                 })
-                st.bar_chart(chart, x="Chữ số", y="Xác suất")
+                st.bar_chart(chart, x="Chữ số", y="Xác suất", color=PINEAPPLE_YELLOW)
 
                 st.session_state["history"].append({
                     "Thời gian": datetime.datetime.now().strftime("%H:%M:%S %d/%m/%Y"),
@@ -172,7 +180,7 @@ with tab_eval:
             })
         df_digit = pd.DataFrame(rows)
         st.dataframe(df_digit, hide_index=True)
-        st.bar_chart(df_digit, x="Chữ số", y="Độ chính xác (%)")
+        st.bar_chart(df_digit, x="Chữ số", y="Độ chính xác (%)", color=PINEAPPLE_YELLOW)
 
         worst = df_digit.loc[df_digit["Độ chính xác (%)"].idxmin()]
         st.write(f"Chữ số khó nhận diện nhất: **{worst['Chữ số']}** "
